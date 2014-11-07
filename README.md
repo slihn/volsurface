@@ -3,7 +3,7 @@ volsurface
 
 Visualize volatility surface
 
-# R Output for 2013-12-31
+# R Output for SPX options EOD data on 12/31/2013
 
 The quality is far worse than Mr. Gatheral has. But you can more or less see the volatility smile and skew.
 
