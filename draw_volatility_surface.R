@@ -3,20 +3,18 @@ library("plyr")
 
 setwd("~/Windows/git/volsurface")
 
+start_close <- 1848.36
+start_date <- as.Date("12/31/2013", format="%m/%d/%Y")
+
 spx_data0 <- read.csv("data/SPX_options_2013_1231.csv")
 spx_data1 <- transform(spx_data0, expiration_date = as.Date(expiration_date, format="%m/%d/%Y"))
 spx_data1$exp_days <- as.numeric(spx_data1[["expiration_date"]] - start_date)
 
 spx_data <- spx_data1
 
-
-start_close <- 1848.36
-start_date <- as.Date("12/31/2013", format="%m/%d/%Y")
-
 spx_dates <- unique(spx_data[["expiration_date"]])
 spx_strikes <- unique(spx_data[["strike"]])
 spx_days <- unique(spx_data[["exp_days"]])
-spx_fwd_strikes <- log(spx_strikes / start_close)
 
 imp_vol_data <- function(in_days, in_strike) {
   d <- subset(spx_data, exp_days == in_days & strike == in_strike & substring(root_symbol,1,3) == "SPX")
