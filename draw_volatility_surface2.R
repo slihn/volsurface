@@ -6,7 +6,7 @@ setwd("~/Windows/git/volsurface")
 start_close <- 1848.36
 start_date <- as.Date("12/31/2013", format="%m/%d/%Y")
 
-spx_data0 <- read.csv("data/SPX_options_2013_1231.csv")
+spx_data0 <- read.csv("data/SPX_options2_2013_1231.csv")
 spx_data1 <- transform(spx_data0, expiration_date = as.Date(expiration_date, format="%m/%d/%Y"))
 spx_data1$exp_days <- as.numeric(spx_data1[["expiration_date"]] - start_date)
 
