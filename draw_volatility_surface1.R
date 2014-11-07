@@ -6,23 +6,23 @@ setwd("~/git/volsurface")
 start_close <- 1848.36
 start_date <- as.Date("12/31/2013", format="%m/%d/%Y")
 
-spx_data0 <- read.csv("data/SPX_options2_2013_1231.csv")
-spx_data1 <- transform(spx_data0, expiration_date = as.Date(expiration_date, format="%m/%d/%Y"))
-spx_data1$exp_days <- as.numeric(spx_data1[["expiration_date"]] - start_date)
+spx_data0 <- read.csv("data/SPX_options1_2013_1231.csv")
+spx_data1 <- transform(spx_data0, Expiration = as.Date(Expiration, format="%m/%d/%Y"))
+spx_data1$exp_days <- as.numeric(spx_data1[["Expiration"]] - start_date)
 
 spx_data <- spx_data1
 
-spx_dates <- unique(spx_data[["expiration_date"]])
-spx_strikes <- unique(spx_data[["strike"]])
+spx_dates <- unique(spx_data[["Expiration"]])
+spx_strikes <- unique(spx_data[["Strike"]])
 spx_days <- unique(spx_data[["exp_days"]])
 
 imp_vol_data <- function(in_days, in_strike) {
-  d <- subset(spx_data, exp_days == in_days & strike == in_strike & substring(root_symbol,1,3) == "SPX")
+  d <- subset(spx_data, exp_days == in_days & Strike == in_strike & substring(OptionLongName,1,3) == "SPX")
   return(d)
 }
 imp_vol <- function(in_days, in_strike) {
   d <- imp_vol_data(in_days, in_strike)
-  return(mean(d[["implied_volatility_1545"]], na.rm=TRUE))
+  return(mean(d[["ImpliedVolatility"]], na.rm=TRUE))
 }
 imp_vol_mat <- function(days, strike) {
   m2 <- days
@@ -44,7 +44,7 @@ surf3D(x = x3d, y = y3d, z = vol3d,
        colkey=FALSE, contour=TRUE, border = "black", 
        facets=FALSE, # turn this on and off
        bty="b2", theta=-45, phi=45,
-       main="Volatility Surface 2", xlab="Days", ylab="Strike", zlab="Imp Vol")
+       main="Volatility Surface 1", xlab="Days", ylab="Strike", zlab="Imp Vol")
 
 
 
